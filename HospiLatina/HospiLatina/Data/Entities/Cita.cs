@@ -17,21 +17,21 @@ namespace HospiLatina.Data.Entities
         public int IdSala { get; set; }
 
         [ForeignKey("IdProfesor")]
-        public Profesor Profesor { get; set; }
+        public Profesor? Profesor { get; set; }
 
         [ForeignKey("IdProcedimiento")]
-        public Procedimiento Procedimiento { get; set; }
+        public Procedimiento? Procedimiento { get; set; }
 
         [ForeignKey("IdEstudiante")]
-        public Estudiante Estudiante { get; set; }
+        public Estudiante? Estudiante { get; set; }
 
         [ForeignKey("IdConsultorio")]
-        public Consultorio Consultorio { get; set; }
+        public Consultorio? Consultorio { get; set; }
 
         [ForeignKey("IdPaciente")]
-        public Paciente Paciente { get; set; }
+        public Paciente? Paciente { get; set; }
 
         [ForeignKey("IdSala")]
-        public SalaCirugia Sala { get; set; }
+        public SalaCirugia? Sala { get; set; }
     }
 }

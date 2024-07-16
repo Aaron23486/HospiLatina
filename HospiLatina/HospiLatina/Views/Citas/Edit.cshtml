@@ -14,18 +14,24 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCita" />
             <div class="form-group">
-                <label asp-for="IdProfesor" class="control-label"></label>
-                <select asp-for="IdProfesor" class="form-control" asp-items="ViewBag.IdProfesor"></select>
+                <label asp-for="Profesor" class="control-label"></label>
+                <select asp-for="IdProfesor" class="form-control" asp-items="@(new SelectList(ViewBag.IdProfesor, "Value", "Text", Model.IdProfesor))">
+                    <option value="">Seleccione un profesor</option>
+                </select>
                 <span asp-validation-for="IdProfesor" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdProcedimiento" class="control-label"></label>
-                <select asp-for="IdProcedimiento" class="form-control" asp-items="ViewBag.IdProcedimiento"></select>
+                <label asp-for="Procedimiento" class="control-label"></label>
+                <select asp-for="IdProcedimiento" class="form-control" asp-items="@(new SelectList(ViewBag.IdProcedimiento, "Value", "Text", Model.IdProcedimiento))">
+                    <option value="">Seleccione un procedimiento</option>
+                </select>
                 <span asp-validation-for="IdProcedimiento" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdEstudiante" class="control-label"></label>
-                <select asp-for="IdEstudiante" class="form-control" asp-items="ViewBag.IdEstudiante"></select>
+                <label asp-for="Estudiante" class="control-label"></label>
+                <select asp-for="IdEstudiante" class="form-control" asp-items="@(new SelectList(ViewBag.IdEstudiante, "Value", "Text", Model.IdEstudiante))">
+                    <option value="">Seleccione un estudiante</option>
+                </select>
                 <span asp-validation-for="IdEstudiante" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -39,18 +45,24 @@
                 <span asp-validation-for="Hora" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdConsultorio" class="control-label"></label>
-                <select asp-for="IdConsultorio" class="form-control" asp-items="ViewBag.IdConsultorio"></select>
+                <label asp-for="Consultorio" class="control-label"></label>
+                <select asp-for="IdConsultorio" class="form-control" asp-items="@(new SelectList(ViewBag.IdConsultorio, "Value", "Text", Model.IdConsultorio))">
+                    <option value="">Seleccione un consultorio</option>
+                </select>
                 <span asp-validation-for="IdConsultorio" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdPaciente" class="control-label"></label>
-                <select asp-for="IdPaciente" class="form-control" asp-items="ViewBag.IdPaciente"></select>
+                <label asp-for="Paciente" class="control-label"></label>
+                <select asp-for="IdPaciente" class="form-control" asp-items="@(new SelectList(ViewBag.IdPaciente, "Value", "Text", Model.IdPaciente))">
+                    <option value="">Seleccione un paciente</option>
+                </select>
                 <span asp-validation-for="IdPaciente" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdSala" class="control-label"></label>
-                <select asp-for="IdSala" class="form-control" asp-items="ViewBag.IdSala"></select>
+                <label asp-for="Sala" class="control-label"></label>
+                <select asp-for="IdSala" class="form-control" asp-items="@(new SelectList(ViewBag.IdSala, "Value", "Text", Model.IdSala))">
+                    <option value="">Seleccione una sala</option>
+                </select>
                 <span asp-validation-for="IdSala" class="text-danger"></span>
             </div>
             <div class="form-group mt-3">

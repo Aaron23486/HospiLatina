@@ -13,16 +13,22 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdProfesor" class="control-label"></label>
-                <select asp-for="IdProfesor" class="form-control" asp-items="ViewBag.IdProfesor"></select>
+                <label asp-for="Profesor" class="control-label"></label>
+                <select asp-for="IdProfesor" class="form-control" asp-items="@(new SelectList(ViewBag.IdProfesor, "Value", "Text", null))">
+                    <option value="">Seleccione un profesor</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="IdProcedimiento" class="control-label"></label>
-                <select asp-for="IdProcedimiento" class="form-control" asp-items="ViewBag.IdProcedimiento"></select>
+                <label asp-for="Procedimiento" class="control-label"></label>
+                <select asp-for="IdProcedimiento" class="form-control" asp-items="@(new SelectList(ViewBag.IdProcedimiento, "Value", "Text", null))">
+                    <option value="">Seleccione un procedimiento</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="IdEstudiante" class="control-label"></label>
-                <select asp-for="IdEstudiante" class="form-control" asp-items="ViewBag.IdEstudiante"></select>
+                <label asp-for="Estudiante" class="control-label"></label>
+                <select asp-for="IdEstudiante" class="form-control" asp-items="@(new SelectList(ViewBag.IdEstudiante, "Value", "Text", null))">
+                    <option value="">Seleccione un estudiante</option>
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label"></label>
@@ -35,16 +41,22 @@
                 <span asp-validation-for="Hora" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdConsultorio" class="control-label"></label>
-                <select asp-for="IdConsultorio" class="form-control" asp-items="ViewBag.IdConsultorio"></select>
+                <label asp-for="Consultorio" class="control-label"></label>
+                <select asp-for="IdConsultorio" class="form-control" asp-items="@(new SelectList(ViewBag.IdConsultorio, "Value", "Text", null))">
+                    <option value="">Seleccione un consultorio</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="IdPaciente" class="control-label"></label>
-                <select asp-for="IdPaciente" class="form-control" asp-items="ViewBag.IdPaciente"></select>
+                <label asp-for="Paciente" class="control-label"></label>
+                <select asp-for="IdPaciente" class="form-control" asp-items="@(new SelectList(ViewBag.IdPaciente, "Value", "Text", null))">
+                    <option value="">Seleccione un paciente</option>
+                </select>
             </div>
             <div class="form-group">
-                <label asp-for="IdSala" class="control-label"></label>
-                <select asp-for="IdSala" class="form-control" asp-items="ViewBag.IdSala"></select>
+                <label asp-for="Sala" class="control-label"></label>
+                <select asp-for="IdSala" class="form-control" asp-items="@(new SelectList(ViewBag.IdSala, "Value", "Text", null))">
+                    <option value="">Seleccione una sala</option>
+                </select>
             </div>
             <div class="form-group mt-3">
                 <input type="submit" value="Crear" class="btn btn-outline-primary" />
@@ -53,7 +65,6 @@
         </form>
     </div>
 </div>
-
 
 @section Scripts {
     @{

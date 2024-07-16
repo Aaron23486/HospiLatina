@@ -9,6 +9,6 @@ namespace HospiLatina.Data.Entities
         public string Ubicacion { get; set; }
         public string Nombre { get; set; }
 
-        public ICollection<Cita> Citas { get; set; }
+        public ICollection<Cita>? Citas { get; set; }
     }
 }

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Calificaciónes</h1>
+<h1>Calificaciones</h1>
 
 <p>
     <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
@@ -35,7 +35,8 @@
                     @Html.DisplayFor(modelItem => item.Comentario)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Cita.IdCita)
+                    @Html.DisplayFor(modelItem => item.Cita.Fecha)
+                    @Html.Raw($" ({item.Cita.IdCita})")
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdCalificacion" class="btn btn-outline-primary ml-2">Editar</a>

@@ -12,8 +12,8 @@ namespace HospiLatina.Data.Entities
         public double Total { get; set; }
 
         [ForeignKey("IdPaciente")]
-        public Paciente Paciente { get; set; }
+        public Paciente? Paciente { get; set; }
 
-        public ICollection<DetalleFactura> DetallesFactura { get; set; }
+        public ICollection<DetalleFactura>? DetallesFactura { get; set; }
     }
 }

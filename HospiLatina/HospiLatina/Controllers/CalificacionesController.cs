@@ -48,13 +48,15 @@ namespace HospiLatina.Controllers
         // GET: Calificaciones/Create
         public IActionResult Create()
         {
-            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "IdCita");
+            ViewData["IdCita"] = new SelectList(
+                _context.Citas.Select(c => new {
+                    c.IdCita,
+                    NombreCompleto = $"{c.Fecha} - {c.Hora} ({c.IdCita})"
+                }).ToList(), "IdCita", "NombreCompleto");
             return View();
         }
 
         // POST: Calificaciones/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCalificacion,Puntuacion,Comentario,IdCita")] Calificacion calificacion)
@@ -65,7 +67,11 @@ namespace HospiLatina.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "IdCita", calificacion.IdCita);
+            ViewData["IdCita"] = new SelectList(
+                _context.Citas.Select(c => new {
+                    c.IdCita,
+                    NombreCompleto = $"{c.Fecha} - {c.Hora} ({c.IdCita})"
+                }).ToList(), "IdCita", "NombreCompleto", calificacion.IdCita);
             return View(calificacion);
         }
 
@@ -82,13 +88,15 @@ namespace HospiLatina.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "IdCita", calificacion.IdCita);
+            ViewData["IdCita"] = new SelectList(
+                _context.Citas.Select(c => new {
+                    c.IdCita,
+                    NombreCompleto = $"{c.Fecha} - {c.Hora} ({c.IdCita})"
+                }).ToList(), "IdCita", "NombreCompleto", calificacion.IdCita);
             return View(calificacion);
         }
 
         // POST: Calificaciones/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCalificacion,Puntuacion,Comentario,IdCita")] Calificacion calificacion)
@@ -118,7 +126,11 @@ namespace HospiLatina.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdCita"] = new SelectList(_context.Citas, "IdCita", "IdCita", calificacion.IdCita);
+            ViewData["IdCita"] = new SelectList(
+                _context.Citas.Select(c => new {
+                    c.IdCita,
+                    NombreCompleto = $"{c.Fecha} - {c.Hora} ({c.IdCita})"
+                }).ToList(), "IdCita", "NombreCompleto", calificacion.IdCita);
             return View(calificacion);
         }
 

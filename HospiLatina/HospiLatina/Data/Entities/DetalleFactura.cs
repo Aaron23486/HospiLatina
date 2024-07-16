@@ -13,9 +13,9 @@ namespace HospiLatina.Data.Entities
         public int Cantidad { get; set; }
 
         [ForeignKey("IdFactura")]
-        public Factura Factura { get; set; }
+        public Factura? Factura { get; set; }
 
         [ForeignKey("IdProcedimiento")]
-        public Procedimiento Procedimiento { get; set; }
+        public Procedimiento? Procedimiento { get; set; }
     }
 }

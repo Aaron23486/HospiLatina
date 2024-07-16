@@ -48,13 +48,15 @@ namespace HospiLatina.Controllers
         // GET: Facturas/Create
         public IActionResult Create()
         {
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente");
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto");
             return View();
         }
 
         // POST: Facturas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdFactura,IdPaciente,Fecha,Total")] Factura factura)
@@ -65,9 +67,14 @@ namespace HospiLatina.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente", factura.IdPaciente);
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto", factura.IdPaciente);
             return View(factura);
         }
+
 
         // GET: Facturas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -82,13 +89,15 @@ namespace HospiLatina.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente", factura.IdPaciente);
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto", factura.IdPaciente);
             return View(factura);
         }
 
         // POST: Facturas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdFactura,IdPaciente,Fecha,Total")] Factura factura)
@@ -118,9 +127,14 @@ namespace HospiLatina.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente", factura.IdPaciente);
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto", factura.IdPaciente);
             return View(factura);
         }
+
 
         // GET: Facturas/Delete/5
         public async Task<IActionResult> Delete(int? id)

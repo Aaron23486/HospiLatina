@@ -53,18 +53,46 @@ namespace HospiLatina.Controllers
         // GET: Citas/Create
         public IActionResult Create()
         {
-            ViewData["IdConsultorio"] = new SelectList(_context.Consultorios, "IdConsultorio", "IdConsultorio");
-            ViewData["IdEstudiante"] = new SelectList(_context.Estudiantes, "IdEstudiante", "IdEstudiante");
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente");
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento");
-            ViewData["IdProfesor"] = new SelectList(_context.Profesores, "IdProfesor", "IdProfesor");
-            ViewData["IdSala"] = new SelectList(_context.SalasCirugia, "IdSala", "IdSala");
+            ViewData["IdConsultorio"] = new SelectList(
+                _context.Consultorios.Select(c => new {
+                    c.IdConsultorio,
+                    NombreCompleto = $"{c.Nombre} ({c.IdConsultorio})"
+                }).ToList(), "IdConsultorio", "NombreCompleto");
+
+            ViewData["IdEstudiante"] = new SelectList(
+                _context.Estudiantes.Select(e => new {
+                    e.IdEstudiante,
+                    NombreCompleto = $"{e.Nombre} {e.Apellido} ({e.IdEstudiante})"
+                }).ToList(), "IdEstudiante", "NombreCompleto");
+
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto");
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(pr => new {
+                    pr.IdProcedimiento,
+                    NombreCompleto = $"{pr.Nombre} ({pr.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto");
+
+            ViewData["IdProfesor"] = new SelectList(
+                _context.Profesores.Select(pr => new {
+                    pr.IdProfesor,
+                    NombreCompleto = $"{pr.Nombre} {pr.Apellido} ({pr.IdProfesor})"
+                }).ToList(), "IdProfesor", "NombreCompleto");
+
+            ViewData["IdSala"] = new SelectList(
+                _context.SalasCirugia.Select(s => new {
+                    s.IdSala,
+                    NombreCompleto = $"{s.Nombre} ({s.IdSala})"
+                }).ToList(), "IdSala", "NombreCompleto");
+
             return View();
         }
 
         // POST: Citas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCita,IdProfesor,IdProcedimiento,IdEstudiante,Fecha,Hora,IdConsultorio,IdPaciente,IdSala")] Cita cita)
@@ -75,14 +103,47 @@ namespace HospiLatina.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdConsultorio"] = new SelectList(_context.Consultorios, "IdConsultorio", "IdConsultorio", cita.IdConsultorio);
-            ViewData["IdEstudiante"] = new SelectList(_context.Estudiantes, "IdEstudiante", "IdEstudiante", cita.IdEstudiante);
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente", cita.IdPaciente);
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento", cita.IdProcedimiento);
-            ViewData["IdProfesor"] = new SelectList(_context.Profesores, "IdProfesor", "IdProfesor", cita.IdProfesor);
-            ViewData["IdSala"] = new SelectList(_context.SalasCirugia, "IdSala", "IdSala", cita.IdSala);
+
+            // Rebuild the SelectLists with the selected values
+            ViewData["IdConsultorio"] = new SelectList(
+                _context.Consultorios.Select(c => new {
+                    c.IdConsultorio,
+                    NombreCompleto = $"{c.Nombre} ({c.IdConsultorio})"
+                }).ToList(), "IdConsultorio", "NombreCompleto", cita.IdConsultorio);
+
+            ViewData["IdEstudiante"] = new SelectList(
+                _context.Estudiantes.Select(e => new {
+                    e.IdEstudiante,
+                    NombreCompleto = $"{e.Nombre} {e.Apellido} ({e.IdEstudiante})"
+                }).ToList(), "IdEstudiante", "NombreCompleto", cita.IdEstudiante);
+
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto", cita.IdPaciente);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(pr => new {
+                    pr.IdProcedimiento,
+                    NombreCompleto = $"{pr.Nombre} ({pr.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto", cita.IdProcedimiento);
+
+            ViewData["IdProfesor"] = new SelectList(
+                _context.Profesores.Select(pr => new {
+                    pr.IdProfesor,
+                    NombreCompleto = $"{pr.Nombre} {pr.Apellido} ({pr.IdProfesor})"
+                }).ToList(), "IdProfesor", "NombreCompleto", cita.IdProfesor);
+
+            ViewData["IdSala"] = new SelectList(
+                _context.SalasCirugia.Select(s => new {
+                    s.IdSala,
+                    NombreCompleto = $"{s.Nombre} ({s.IdSala})"
+                }).ToList(), "IdSala", "NombreCompleto", cita.IdSala);
+
             return View(cita);
         }
+
 
         // GET: Citas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -92,23 +153,60 @@ namespace HospiLatina.Controllers
                 return NotFound();
             }
 
-            var cita = await _context.Citas.FindAsync(id);
+            var cita = await _context.Citas
+                .Include(c => c.Consultorio)
+                .Include(c => c.Estudiante)
+                .Include(c => c.Paciente)
+                .Include(c => c.Procedimiento)
+                .Include(c => c.Profesor)
+                .Include(c => c.Sala)
+                .FirstOrDefaultAsync(m => m.IdCita == id);
+
             if (cita == null)
             {
                 return NotFound();
             }
-            ViewData["IdConsultorio"] = new SelectList(_context.Consultorios, "IdConsultorio", "IdConsultorio", cita.IdConsultorio);
-            ViewData["IdEstudiante"] = new SelectList(_context.Estudiantes, "IdEstudiante", "IdEstudiante", cita.IdEstudiante);
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente", cita.IdPaciente);
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento", cita.IdProcedimiento);
-            ViewData["IdProfesor"] = new SelectList(_context.Profesores, "IdProfesor", "IdProfesor", cita.IdProfesor);
-            ViewData["IdSala"] = new SelectList(_context.SalasCirugia, "IdSala", "IdSala", cita.IdSala);
+
+            ViewData["IdConsultorio"] = new SelectList(
+                _context.Consultorios.Select(c => new {
+                    c.IdConsultorio,
+                    NombreCompleto = $"{c.Nombre} ({c.IdConsultorio})"
+                }).ToList(), "IdConsultorio", "NombreCompleto", cita.IdConsultorio);
+
+            ViewData["IdEstudiante"] = new SelectList(
+                _context.Estudiantes.Select(e => new {
+                    e.IdEstudiante,
+                    NombreCompleto = $"{e.Nombre} {e.Apellido} ({e.IdEstudiante})"
+                }).ToList(), "IdEstudiante", "NombreCompleto", cita.IdEstudiante);
+
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto", cita.IdPaciente);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(pr => new {
+                    pr.IdProcedimiento,
+                    NombreCompleto = $"{pr.Nombre} ({pr.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto", cita.IdProcedimiento);
+
+            ViewData["IdProfesor"] = new SelectList(
+                _context.Profesores.Select(pr => new {
+                    pr.IdProfesor,
+                    NombreCompleto = $"{pr.Nombre} {pr.Apellido} ({pr.IdProfesor})"
+                }).ToList(), "IdProfesor", "NombreCompleto", cita.IdProfesor);
+
+            ViewData["IdSala"] = new SelectList(
+                _context.SalasCirugia.Select(s => new {
+                    s.IdSala,
+                    NombreCompleto = $"{s.Nombre} ({s.IdSala})"
+                }).ToList(), "IdSala", "NombreCompleto", cita.IdSala);
+
             return View(cita);
         }
 
         // POST: Citas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCita,IdProfesor,IdProcedimiento,IdEstudiante,Fecha,Hora,IdConsultorio,IdPaciente,IdSala")] Cita cita)
@@ -138,14 +236,46 @@ namespace HospiLatina.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdConsultorio"] = new SelectList(_context.Consultorios, "IdConsultorio", "IdConsultorio", cita.IdConsultorio);
-            ViewData["IdEstudiante"] = new SelectList(_context.Estudiantes, "IdEstudiante", "IdEstudiante", cita.IdEstudiante);
-            ViewData["IdPaciente"] = new SelectList(_context.Pacientes, "IdPaciente", "IdPaciente", cita.IdPaciente);
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento", cita.IdProcedimiento);
-            ViewData["IdProfesor"] = new SelectList(_context.Profesores, "IdProfesor", "IdProfesor", cita.IdProfesor);
-            ViewData["IdSala"] = new SelectList(_context.SalasCirugia, "IdSala", "IdSala", cita.IdSala);
+
+            ViewData["IdConsultorio"] = new SelectList(
+                _context.Consultorios.Select(c => new {
+                    c.IdConsultorio,
+                    NombreCompleto = $"{c.Nombre} ({c.IdConsultorio})"
+                }).ToList(), "IdConsultorio", "NombreCompleto", cita.IdConsultorio);
+
+            ViewData["IdEstudiante"] = new SelectList(
+                _context.Estudiantes.Select(e => new {
+                    e.IdEstudiante,
+                    NombreCompleto = $"{e.Nombre} {e.Apellido} ({e.IdEstudiante})"
+                }).ToList(), "IdEstudiante", "NombreCompleto", cita.IdEstudiante);
+
+            ViewData["IdPaciente"] = new SelectList(
+                _context.Pacientes.Select(p => new {
+                    p.IdPaciente,
+                    NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
+                }).ToList(), "IdPaciente", "NombreCompleto", cita.IdPaciente);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(pr => new {
+                    pr.IdProcedimiento,
+                    NombreCompleto = $"{pr.Nombre} ({pr.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto", cita.IdProcedimiento);
+
+            ViewData["IdProfesor"] = new SelectList(
+                _context.Profesores.Select(pr => new {
+                    pr.IdProfesor,
+                    NombreCompleto = $"{pr.Nombre} {pr.Apellido} ({pr.IdProfesor})"
+                }).ToList(), "IdProfesor", "NombreCompleto", cita.IdProfesor);
+
+            ViewData["IdSala"] = new SelectList(
+                _context.SalasCirugia.Select(s => new {
+                    s.IdSala,
+                    NombreCompleto = $"{s.Nombre} ({s.IdSala})"
+                }).ToList(), "IdSala", "NombreCompleto", cita.IdSala);
+
             return View(cita);
         }
+
 
         // GET: Citas/Delete/5
         public async Task<IActionResult> Delete(int? id)

@@ -19,24 +19,24 @@
                 @Html.DisplayNameFor(model => model.Hora)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Profesor)
+                @Html.DisplayNameFor(model => model.Profesor.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Procedimiento)
+                @Html.DisplayNameFor(model => model.Procedimiento.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estudiante)
+                @Html.DisplayNameFor(model => model.Estudiante.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Consultorio)
+                @Html.DisplayNameFor(model => model.Consultorio.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente)
+                @Html.DisplayNameFor(model => model.Paciente.Nombre)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sala)
+                @Html.DisplayNameFor(model => model.Sala.Nombre)
             </th>
-            <th>Acciónes</th>
+            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -50,22 +50,22 @@
                     @Html.DisplayFor(modelItem => item.Hora)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Profesor.IdProfesor)
+                    @Html.DisplayFor(modelItem => item.Profesor.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Procedimiento.IdProcedimiento)
+                    @Html.DisplayFor(modelItem => item.Procedimiento.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Estudiante.IdEstudiante)
+                    @Html.DisplayFor(modelItem => item.Estudiante.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Consultorio.IdConsultorio)
+                    @Html.DisplayFor(modelItem => item.Consultorio.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Paciente.IdPaciente)
+                    @Html.DisplayFor(modelItem => item.Paciente.Nombre)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Sala.IdSala)
+                    @Html.DisplayFor(modelItem => item.Sala.Nombre)
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-outline-primary ml-2">Editar</a>

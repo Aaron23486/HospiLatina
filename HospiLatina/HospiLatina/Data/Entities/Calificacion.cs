@@ -12,6 +12,6 @@ namespace HospiLatina.Data.Entities
         public int IdCita { get; set; }
 
         [ForeignKey("IdCita")]
-        public Cita Cita { get; set; }
+        public Cita? Cita { get; set; }
     }
 }

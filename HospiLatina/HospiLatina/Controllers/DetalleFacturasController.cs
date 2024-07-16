@@ -49,14 +49,22 @@ namespace HospiLatina.Controllers
         // GET: DetalleFacturas/Create
         public IActionResult Create()
         {
-            ViewData["IdFactura"] = new SelectList(_context.Facturas, "IdFactura", "IdFactura");
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento");
+            ViewData["IdFactura"] = new SelectList(
+                _context.Facturas.Select(f => new {
+                    f.IdFactura,
+                    NombreCompleto = $"{f.Paciente.Nombre} {f.Paciente.Apellido} ({f.IdFactura})"
+                }).ToList(), "IdFactura", "NombreCompleto");
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(p => new {
+                    p.IdProcedimiento,
+                    NombreCompleto = $"{p.Nombre} ({p.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto");
+
             return View();
         }
 
         // POST: DetalleFacturas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdDetalle,IdFactura,IdProcedimiento,Subtotal,Cantidad")] DetalleFactura detalleFactura)
@@ -67,10 +75,21 @@ namespace HospiLatina.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdFactura"] = new SelectList(_context.Facturas, "IdFactura", "IdFactura", detalleFactura.IdFactura);
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento", detalleFactura.IdProcedimiento);
+            ViewData["IdFactura"] = new SelectList(
+                _context.Facturas.Select(f => new {
+                    f.IdFactura,
+                    NombreCompleto = $"{f.Paciente.Nombre} {f.Paciente.Apellido} ({f.IdFactura})"
+                }).ToList(), "IdFactura", "NombreCompleto", detalleFactura.IdFactura);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(p => new {
+                    p.IdProcedimiento,
+                    NombreCompleto = $"{p.Nombre} ({p.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto", detalleFactura.IdProcedimiento);
+
             return View(detalleFactura);
         }
+
 
         // GET: DetalleFacturas/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -85,14 +104,22 @@ namespace HospiLatina.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdFactura"] = new SelectList(_context.Facturas, "IdFactura", "IdFactura", detalleFactura.IdFactura);
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento", detalleFactura.IdProcedimiento);
+            ViewData["IdFactura"] = new SelectList(
+                _context.Facturas.Select(f => new {
+                    f.IdFactura,
+                    NombreCompleto = $"{f.Paciente.Nombre} {f.Paciente.Apellido} ({f.IdFactura})"
+                }).ToList(), "IdFactura", "NombreCompleto", detalleFactura.IdFactura);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(p => new {
+                    p.IdProcedimiento,
+                    NombreCompleto = $"{p.Nombre} ({p.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto", detalleFactura.IdProcedimiento);
+
             return View(detalleFactura);
         }
 
         // POST: DetalleFacturas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdDetalle,IdFactura,IdProcedimiento,Subtotal,Cantidad")] DetalleFactura detalleFactura)
@@ -122,10 +149,21 @@ namespace HospiLatina.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdFactura"] = new SelectList(_context.Facturas, "IdFactura", "IdFactura", detalleFactura.IdFactura);
-            ViewData["IdProcedimiento"] = new SelectList(_context.Procedimientos, "IdProcedimiento", "IdProcedimiento", detalleFactura.IdProcedimiento);
+            ViewData["IdFactura"] = new SelectList(
+                _context.Facturas.Select(f => new {
+                    f.IdFactura,
+                    NombreCompleto = $"{f.Paciente.Nombre} {f.Paciente.Apellido} ({f.IdFactura})"
+                }).ToList(), "IdFactura", "NombreCompleto", detalleFactura.IdFactura);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(p => new {
+                    p.IdProcedimiento,
+                    NombreCompleto = $"{p.Nombre} ({p.IdProcedimiento})"
+                }).ToList(), "IdProcedimiento", "NombreCompleto", detalleFactura.IdProcedimiento);
+
             return View(detalleFactura);
         }
+
 
         // GET: DetalleFacturas/Delete/5
         public async Task<IActionResult> Delete(int? id)
