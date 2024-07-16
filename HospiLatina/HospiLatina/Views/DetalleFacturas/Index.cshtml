@@ -1,0 +1,54 @@
+﻿@model IEnumerable<HospiLatina.Data.Entities.DetalleFactura>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Detalles de Facturas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Subtotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Factura)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Procedimiento)
+            </th>
+            <th>Acciónes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Subtotal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cantidad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Factura.IdFactura)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Procedimiento.IdProcedimiento)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdDetalle" class="btn btn-outline-primary ml-2">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdDetalle" class="btn btn-outline-info ml-2">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdDetalle" class="btn btn-outline-danger ml-2">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,36 @@
+﻿@model HospiLatina.Data.Entities.Equipo
+
+@{
+    ViewData["Title"] = "Detalles";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Equipo</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.FechaSoporte)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.FechaSoporte)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdEquipo" class="btn btn-outline-primary">Editar</a>
+    <a asp-action="Index" class="btn btn-outline-secondary ml-2">Regresar</a>
+</div>

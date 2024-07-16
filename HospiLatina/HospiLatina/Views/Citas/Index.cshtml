@@ -1,0 +1,78 @@
+﻿@model IEnumerable<HospiLatina.Data.Entities.Cita>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Citas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hora)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Profesor)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Procedimiento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Estudiante)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Consultorio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sala)
+            </th>
+            <th>Acciónes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Fecha)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hora)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Profesor.IdProfesor)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Procedimiento.IdProcedimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estudiante.IdEstudiante)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Consultorio.IdConsultorio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paciente.IdPaciente)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sala.IdSala)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCita" class="btn btn-outline-primary ml-2">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdCita" class="btn btn-outline-info ml-2">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdCita" class="btn btn-outline-danger ml-2">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

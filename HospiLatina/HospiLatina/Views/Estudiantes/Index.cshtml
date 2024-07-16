@@ -1,0 +1,61 @@
+﻿@model IEnumerable<HospiLatina.Data.Entities.Estudiante>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Estudiantes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Especialidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnoDeGraduacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HorarioAtencion)
+            </th>
+            <th>
+                Acciónes
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Especialidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AnoDeGraduacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HorarioAtencion)
+            </td>
+            <td>
+    <a asp-action="Edit" asp-route-id="@item.IdEstudiante" class="btn btn-outline-primary ml-2">Editar</a>
+    <a asp-action="Details" asp-route-id="@item.IdEstudiante" class="btn btn-outline-info ml-2">Detalles</a>
+    <a asp-action="Delete" asp-route-id="@item.IdEstudiante" class="btn btn-outline-danger ml-2">Borrar</a>
+</td>
+        </tr>
+}
+    </tbody>
+</table>

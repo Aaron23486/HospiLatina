@@ -1,0 +1,68 @@
+﻿@model IEnumerable<HospiLatina.Data.Entities.Paciente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Pacientes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefono)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.FechaNacimiento)
+            </th>
+            <th>Acciónes</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefono)
+                </td>
+                
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdPaciente" class="btn btn-outline-primary ml-2">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdPaciente" class="btn btn-outline-info ml-2">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdPaciente" class="btn btn-outline-danger ml-2">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

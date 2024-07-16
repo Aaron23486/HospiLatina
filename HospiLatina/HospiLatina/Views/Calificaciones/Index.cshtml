@@ -1,0 +1,48 @@
+﻿@model IEnumerable<HospiLatina.Data.Entities.Calificacion>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Calificaciónes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Puntuacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Comentario)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cita)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Puntuacion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comentario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cita.IdCita)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdCalificacion" class="btn btn-outline-primary ml-2">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdCalificacion" class="btn btn-outline-info ml-2">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdCalificacion" class="btn btn-outline-danger ml-2">Borrar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
