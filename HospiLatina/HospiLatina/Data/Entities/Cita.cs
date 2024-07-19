@@ -10,6 +10,8 @@ namespace HospiLatina.Data.Entities
         public int IdProfesor { get; set; }
         public int IdProcedimiento { get; set; }
         public int IdEstudiante { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set; }
         public string Hora { get; set; }
         public int IdConsultorio { get; set; }

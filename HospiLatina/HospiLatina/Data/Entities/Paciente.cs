@@ -9,6 +9,8 @@ namespace HospiLatina.Data.Entities
         public string Email { get; set; }
         public string Direccion { get; set; }
         public string Telefono { get; set; }
+
+        [Display(Name = "Paciente")]
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public DateTime FechaNacimiento { get; set; }

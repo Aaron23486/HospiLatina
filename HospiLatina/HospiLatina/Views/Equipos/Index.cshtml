@@ -35,7 +35,7 @@
                     @Html.DisplayFor(modelItem => item.Descripcion)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FechaSoporte)
+                    @item.FechaSoporte.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdEquipo" class="btn btn-outline-primary ml-2">Editar</a>

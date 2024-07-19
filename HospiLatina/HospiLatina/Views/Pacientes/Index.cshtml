@@ -53,9 +53,9 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Telefono)
                 </td>
-                
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                    @item.FechaNacimiento.ToString("dd/MM/yyyy")
                 </td>
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.IdPaciente" class="btn btn-outline-primary ml-2">Editar</a>

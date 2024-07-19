@@ -6,6 +6,7 @@ namespace HospiLatina.Data.Entities
     {
         [Key]
         public int IdProcedimiento { get; set; }
+        [Display(Name = "Procedimiento")]
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public double Precio { get; set; }

@@ -7,6 +7,7 @@ namespace HospiLatina.Data.Entities
         [Key]
         public int IdConsultorio { get; set; }
         public string Ubicacion { get; set; }
+        [Display(Name = "Consultorio")]
         public string Nombre { get; set; }
 
         public ICollection<Cita>? Citas { get; set; }

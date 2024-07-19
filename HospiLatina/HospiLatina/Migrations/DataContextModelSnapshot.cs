@@ -44,7 +44,7 @@ namespace HospiLatina.Migrations
 
                     b.HasIndex("IdCita");
 
-                    b.ToTable("Calificaciones");
+                    b.ToTable("Calificaciones", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Cita", b =>
@@ -94,7 +94,7 @@ namespace HospiLatina.Migrations
 
                     b.HasIndex("IdSala");
 
-                    b.ToTable("Citas");
+                    b.ToTable("Citas", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Consultorio", b =>
@@ -115,7 +115,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdConsultorio");
 
-                    b.ToTable("Consultorios");
+                    b.ToTable("Consultorios", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.DetalleFactura", b =>
@@ -144,7 +144,7 @@ namespace HospiLatina.Migrations
 
                     b.HasIndex("IdProcedimiento");
 
-                    b.ToTable("DetallesFactura");
+                    b.ToTable("DetallesFactura", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Equipo", b =>
@@ -168,7 +168,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdEquipo");
 
-                    b.ToTable("Equipos");
+                    b.ToTable("Equipos", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Estudiante", b =>
@@ -200,7 +200,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdEstudiante");
 
-                    b.ToTable("Estudiantes");
+                    b.ToTable("Estudiantes", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Factura", b =>
@@ -224,7 +224,7 @@ namespace HospiLatina.Migrations
 
                     b.HasIndex("IdPaciente");
 
-                    b.ToTable("Facturas");
+                    b.ToTable("Facturas", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Paciente", b =>
@@ -260,7 +260,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdPaciente");
 
-                    b.ToTable("Pacientes");
+                    b.ToTable("Pacientes", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Procedimiento", b =>
@@ -284,7 +284,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdProcedimiento");
 
-                    b.ToTable("Procedimientos");
+                    b.ToTable("Procedimientos", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.Profesor", b =>
@@ -309,7 +309,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdProfesor");
 
-                    b.ToTable("Profesores");
+                    b.ToTable("Profesores", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Entities.SalaCirugia", b =>
@@ -330,7 +330,7 @@ namespace HospiLatina.Migrations
 
                     b.HasKey("IdSala");
 
-                    b.ToTable("SalasCirugia");
+                    b.ToTable("SalasCirugia", (string)null);
                 });
 
             modelBuilder.Entity("HospiLatina.Data.Calificacion", b =>

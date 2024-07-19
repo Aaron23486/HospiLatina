@@ -8,6 +8,12 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HospiLatina.styles.css" asp-append-version="true" />
 </head>
+<style>
+    .active-link {
+        color: #007bff; /* Azul Bootstrap para enlaces activos, ajusta según tu esquema de color */
+        font-weight: bold;
+    }
+</style>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
@@ -19,45 +25,27 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Estudiantes" asp-action="Index">Estudiantes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pacientes" asp-action="Index">Pacientes</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Profesores" asp-action="Index">Profesores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Procedimientos" asp-action="Index">Procedimientos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Citas" asp-action="Index">Citas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Equipos" asp-action="Index">Equipos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Consultorios" asp-action="Index">Consultorios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="SalaCirugias" asp-action="Index">Salas de Cirugía</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Facturas" asp-action="Index">Facturas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="DetalleFacturas" asp-action="Index">Detalles de Factura</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Calificaciones" asp-action="Index">Calificacion</a>
-                        </li>
+                        @foreach (var item in new[] {
+                        new { Controller = "Home", Action = "Index", Name = "Inicio" },
+                        new { Controller = "Home", Action = "Privacy", Name = "Privacidad" },
+                        new { Controller = "Estudiantes", Action = "Index", Name = "Estudiantes" },
+                        new { Controller = "Pacientes", Action = "Index", Name = "Pacientes" },
+                        new { Controller = "Profesores", Action = "Index", Name = "Profesores" },
+                        new { Controller = "Procedimientos", Action = "Index", Name = "Procedimientos" },
+                        new { Controller = "Citas", Action = "Index", Name = "Citas" },
+                        new { Controller = "Equipos", Action = "Index", Name = "Equipos" },
+                        new { Controller = "Consultorios", Action = "Index", Name = "Consultorios" },
+                        new { Controller = "SalaCirugias", Action = "Index", Name = "Salas de Cirugía" },
+                        new { Controller = "Facturas", Action = "Index", Name = "Facturas" },
+                        new { Controller = "DetalleFacturas", Action = "Index", Name = "Detalles de Factura" },
+                        new { Controller = "Calificaciones", Action = "Index", Name = "Calificaciones" }
+                        })
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark @(ViewContext.RouteData.Values["Controller"].ToString() == item.Controller && ViewContext.RouteData.Values["Action"].ToString() == item.Action ? "active-link" : "")"
+                                   asp-area="" asp-controller="@item.Controller" asp-action="@item.Action">@item.Name</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
