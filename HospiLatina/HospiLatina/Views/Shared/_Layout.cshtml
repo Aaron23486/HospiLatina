@@ -10,22 +10,45 @@
 </head>
 <style>
     .active-link {
-        color: #007bff; /* Azul Bootstrap para enlaces activos, ajusta según tu esquema de color */
+        color: #f8f9fa;
         font-weight: bold;
+        background-color: #495057;
+        border-radius: 5px;
     }
+
+    .navbar-custom {
+        background-color: #343a40;
+    }
+
+        .navbar-custom .navbar-brand,
+        .navbar-custom .nav-link {
+            color: #ffffff;
+        }
+
+    .footer {
+        background-color: #343a40;
+        color: #ffffff;
+        padding: 10px 0;
+        margin-top: 20px;
+    }
+
+        .footer a {
+            color: #ffffff;
+        }
 </style>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-lg navbar-custom">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HospiLatina</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @foreach (var item in new[] {
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    @if (User.IsInRole("Admin") || User.IsInRole("User"))
+                    {
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            @foreach (var item in new[] {
                         new { Controller = "Home", Action = "Index", Name = "Inicio" },
                         new { Controller = "Home", Action = "Privacy", Name = "Privacidad" },
                         new { Controller = "Estudiantes", Action = "Index", Name = "Estudiantes" },
@@ -40,31 +63,78 @@
                         new { Controller = "DetalleFacturas", Action = "Index", Name = "Detalles de Factura" },
                         new { Controller = "Calificaciones", Action = "Index", Name = "Calificaciones" }
                         })
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == item.Controller && ViewContext.RouteData.Values["Action"].ToString() == item.Action ? "active-link" : "")"
+                                       asp-area="" asp-controller="@item.Controller" asp-action="@item.Action">@item.Name</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark @(ViewContext.RouteData.Values["Controller"].ToString() == item.Controller && ViewContext.RouteData.Values["Action"].ToString() == item.Action ? "active-link" : "")"
-                                   asp-area="" asp-controller="@item.Controller" asp-action="@item.Action">@item.Name</a>
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="ChangeUser">@User.Identity.Name</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">Cerrar Sesión</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
                             </li>
                         }
                     </ul>
                 </div>
+
+
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="footer text-center text-white">
         <div class="container">
             &copy; 2024 - HospiLatina - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
+    <!-- Modal de confirmación para cerrar sesión -->
+    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesión</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    ¿Está seguro que desea cerrar sesión?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <a id="confirmLogout" class="btn btn-primary" href="#">Cerrar Sesión</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        document.getElementById('confirmLogout').addEventListener('click', function () {
+            window.location.href = '@Url.Action("Logout", "Account")';
+        });
+    </script>
 </body>
 </html>

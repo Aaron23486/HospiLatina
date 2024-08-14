@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HospiLatina.Data;
 using HospiLatina.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HospiLatina.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class CitasController : Controller
     {
         private readonly DataContext _context;
@@ -50,6 +52,7 @@ namespace HospiLatina.Controllers
             return View(cita);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Citas/Create
         public IActionResult Create()
         {
@@ -92,6 +95,7 @@ namespace HospiLatina.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Citas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -144,7 +148,7 @@ namespace HospiLatina.Controllers
             return View(cita);
         }
 
-
+        [Authorize(Roles = "Admin")]
         // GET: Citas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -206,6 +210,7 @@ namespace HospiLatina.Controllers
             return View(cita);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Citas/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -276,7 +281,7 @@ namespace HospiLatina.Controllers
             return View(cita);
         }
 
-
+        [Authorize(Roles = "Admin")]
         // GET: Citas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -301,6 +306,7 @@ namespace HospiLatina.Controllers
             return View(cita);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Citas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HospiLatina.Data;
 using HospiLatina.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospiLatina.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class ConsultoriosController : Controller
     {
         private readonly DataContext _context;
@@ -43,15 +44,15 @@ namespace HospiLatina.Controllers
             return View(consultorio);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Consultorios/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Consultorios/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdConsultorio,Ubicacion,Nombre")] Consultorio consultorio)
@@ -65,6 +66,7 @@ namespace HospiLatina.Controllers
             return View(consultorio);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Consultorios/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -81,9 +83,8 @@ namespace HospiLatina.Controllers
             return View(consultorio);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Consultorios/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdConsultorio,Ubicacion,Nombre")] Consultorio consultorio)
@@ -116,6 +117,7 @@ namespace HospiLatina.Controllers
             return View(consultorio);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Consultorios/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -134,6 +136,7 @@ namespace HospiLatina.Controllers
             return View(consultorio);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Consultorios/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

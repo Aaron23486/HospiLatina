@@ -6,9 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HospiLatina.Data;
 using HospiLatina.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospiLatina.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class PacientesController : Controller
     {
         private readonly DataContext _context;
@@ -42,12 +44,14 @@ namespace HospiLatina.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Pacientes/Create
         public IActionResult Create()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Pacientes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -62,6 +66,7 @@ namespace HospiLatina.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Pacientes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -78,6 +83,7 @@ namespace HospiLatina.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Pacientes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -111,6 +117,7 @@ namespace HospiLatina.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Pacientes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -129,6 +136,7 @@ namespace HospiLatina.Controllers
             return View(paciente);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Pacientes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

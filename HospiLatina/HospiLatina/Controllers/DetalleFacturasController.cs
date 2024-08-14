@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HospiLatina.Data;
 using HospiLatina.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HospiLatina.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class DetalleFacturasController : Controller
     {
         private readonly DataContext _context;
@@ -46,6 +48,7 @@ namespace HospiLatina.Controllers
             return View(detalleFactura);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: DetalleFacturas/Create
         public IActionResult Create()
         {
@@ -64,6 +67,7 @@ namespace HospiLatina.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: DetalleFacturas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -90,7 +94,7 @@ namespace HospiLatina.Controllers
             return View(detalleFactura);
         }
 
-
+        [Authorize(Roles = "Admin")]
         // GET: DetalleFacturas/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -119,6 +123,7 @@ namespace HospiLatina.Controllers
             return View(detalleFactura);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: DetalleFacturas/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -164,7 +169,7 @@ namespace HospiLatina.Controllers
             return View(detalleFactura);
         }
 
-
+        [Authorize(Roles = "Admin")]
         // GET: DetalleFacturas/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -185,6 +190,7 @@ namespace HospiLatina.Controllers
             return View(detalleFactura);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: DetalleFacturas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

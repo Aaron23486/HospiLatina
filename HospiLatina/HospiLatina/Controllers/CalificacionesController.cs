@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HospiLatina.Data;
 using HospiLatina.Data.Entities;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace HospiLatina.Controllers
 {
+    [Authorize(Roles = "User,Admin")]
     public class CalificacionesController : Controller
     {
         private readonly DataContext _context;
@@ -26,6 +24,7 @@ namespace HospiLatina.Controllers
             return View(await dataContext.ToListAsync());
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Calificaciones/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -45,6 +44,7 @@ namespace HospiLatina.Controllers
             return View(calificacion);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Calificaciones/Create
         public IActionResult Create()
         {
@@ -56,6 +56,7 @@ namespace HospiLatina.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Calificaciones/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,6 +76,7 @@ namespace HospiLatina.Controllers
             return View(calificacion);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Calificaciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -96,6 +98,7 @@ namespace HospiLatina.Controllers
             return View(calificacion);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Calificaciones/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -134,6 +137,7 @@ namespace HospiLatina.Controllers
             return View(calificacion);
         }
 
+        [Authorize(Roles = "Admin")]
         // GET: Calificaciones/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -153,6 +157,7 @@ namespace HospiLatina.Controllers
             return View(calificacion);
         }
 
+        [Authorize(Roles = "Admin")]
         // POST: Calificaciones/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
