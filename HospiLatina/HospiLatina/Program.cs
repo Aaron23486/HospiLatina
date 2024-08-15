@@ -30,6 +30,11 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("UserPolicy", policy => policy.RequireRole("Admin", "User"));
 });
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Home/AccessDenied";
+});
+
 builder.Services.AddTransient<SeedDb>();
 builder.Services.AddScoped<IUserHelper, UserHelper>();
 
@@ -54,6 +59,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+// Default route configuration
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
@@ -68,5 +74,10 @@ using (var scope = app.Services.CreateScope())
     var context = scope.ServiceProvider.GetRequiredService<DataContext>();
     context.Database.Migrate();
 }
+
+// Optional: Map the AccessDenied route (This is not necessary since the AccessDeniedPath is already configured)
+app.MapControllerRoute(
+    name: "AccessDenied",
+    pattern: "{controller=Home}/{action=AccessDenied}");
 
 app.Run();
