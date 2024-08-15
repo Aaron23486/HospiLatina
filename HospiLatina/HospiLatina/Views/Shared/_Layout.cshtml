@@ -7,35 +7,122 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/HospiLatina.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMrh9ax1SAyKnX69yd3Osw3Y4pMSEKD1tMBt5G" crossorigin="anonymous">
+    <style>
+        /* Estilos generales para el cuerpo de la página */
+        body {
+            background-image: url('/images/Hospi.jpg'); /* Establece una imagen de fondo */
+            background-size: 50% 50%; /* Define el tamaño de la imagen de fondo */
+            background-position: center; /* Centra la imagen de fondo */
+            background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+            color: #f8f9fa; /* Establece el color del texto general */
+        }
+
+        /* Estilo para varios elementos de texto */
+        label, h1, dt, dd, p, h4, h3, div {
+            color: #000000; /* Establece el color negro para todos los labels, títulos, términos, descripciones y párrafos */
+        }
+
+        /* Estilo para la barra lateral de navegación */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 220px;
+            background-color: #343a40;
+            padding-top: 70px;
+            transition: transform 0.3s ease;
+            transform: translateX(0);
+            z-index: 1000; /* Mantén la barra lateral debajo del header */
+        }
+
+            .sidebar .nav-item {
+                margin-bottom: 20px; /* Espacio entre cada opción */
+            }
+
+            .sidebar.hidden {
+                transform: translateX(-100%); /* Ocultar barra lateral */
+            }
+
+        /* Estilo para el botón que controla la visibilidad de la barra lateral */
+        .sidebar-toggle {
+            position: fixed;
+            top: 50%;
+            left: 220px;
+            z-index: 1000;
+            background-color: #343a40;
+            color: #ffffff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            transform: translateY(-50%);
+            transition: left 0.3s ease;
+        }
+
+        .sidebar.hidden + .sidebar-toggle {
+            left: 0;
+        }
+
+        /* Estilo para el contenido principal de la página */
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .sidebar.hidden + .content {
+            margin-left: 0;
+        }
+
+        /* Estilo para el pie de página */
+        .footer {
+            background-color: #343a40;
+            color: #ffffff;
+            padding: 10px 0;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .footer a {
+                color: #ffffff;
+            }
+
+        /* Estilo para la barra de navegación superior */
+        .navbar-custom {
+            background-color: #343a40;
+            z-index: 1001; /* Asegura que la barra de navegación esté por encima de otros elementos */
+            position: relative;
+        }
+
+            .navbar-custom .navbar-brand,
+            .navbar-custom .nav-link {
+                color: #ffffff; /* Establece el color del texto en la barra de navegación superior */
+            }
+
+        /* Estilo para los enlaces de navegación en la barra lateral */
+        .sidebar .nav-link {
+            color: #ffffff; /* Establece el color del texto de los enlaces en la barra lateral */
+            font-weight: bold; /* Hace que el texto de los enlaces en la barra lateral sea negrita */
+        }
+
+            .sidebar .nav-link:hover {
+                background-color: #495057; /* Cambia el fondo del enlace cuando se pasa el cursor por encima */
+                border-radius: 5px; /* Agrega bordes redondeados al enlace cuando se pasa el cursor por encima */
+            }
+
+        .sidebar .active-link {
+            color: #ffffff; /* Establece el color del texto de los enlaces activos en blanco */
+            background-color: #007bff; /* Cambia el fondo de los enlaces activos a azul */
+            border-radius: 5px; /* Agrega bordes redondeados a los enlaces activos */
+        }
+
+        /* Estilo para el texto dentro del modal de inicio y cierre de sesión */
+        .modal-body, .modal-header h5 {
+            color: #000000; /* Letras negras en los modales */
+        }
+    </style>
 </head>
-<style>
-    .active-link {
-        color: #f8f9fa;
-        font-weight: bold;
-        background-color: #495057;
-        border-radius: 5px;
-    }
-
-    .navbar-custom {
-        background-color: #343a40;
-    }
-
-        .navbar-custom .navbar-brand,
-        .navbar-custom .nav-link {
-            color: #ffffff;
-        }
-
-    .footer {
-        background-color: #343a40;
-        color: #ffffff;
-        padding: 10px 0;
-        margin-top: 20px;
-    }
-
-        .footer a {
-            color: #ffffff;
-        }
-</style>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-custom">
@@ -45,33 +132,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    @if (User.IsInRole("Admin") || User.IsInRole("User"))
-                    {
-                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            @foreach (var item in new[] {
-                        new { Controller = "Home", Action = "Index", Name = "Inicio" },
-                        new { Controller = "Home", Action = "Privacy", Name = "Privacidad" },
-                        new { Controller = "Estudiantes", Action = "Index", Name = "Estudiantes" },
-                        new { Controller = "Pacientes", Action = "Index", Name = "Pacientes" },
-                        new { Controller = "Profesores", Action = "Index", Name = "Profesores" },
-                        new { Controller = "Procedimientos", Action = "Index", Name = "Procedimientos" },
-                        new { Controller = "Citas", Action = "Index", Name = "Citas" },
-                        new { Controller = "Equipos", Action = "Index", Name = "Equipos" },
-                        new { Controller = "Consultorios", Action = "Index", Name = "Consultorios" },
-                        new { Controller = "SalaCirugias", Action = "Index", Name = "Salas de Cirugía" },
-                        new { Controller = "Facturas", Action = "Index", Name = "Facturas" },
-                        new { Controller = "DetalleFacturas", Action = "Index", Name = "Detalles de Factura" },
-                        new { Controller = "Calificaciones", Action = "Index", Name = "Calificaciones" }
-                        })
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == item.Controller && ViewContext.RouteData.Values["Action"].ToString() == item.Action ? "active-link" : "")"
-                                       asp-area="" asp-controller="@item.Controller" asp-action="@item.Action">@item.Name</a>
-                                </li>
-                            }
-                        </ul>
-                    }
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -83,28 +144,62 @@
                         }
                         else
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
+                            <li class="nav-item" style="text-black">
+                                <a class="nav-link text-black" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
                             </li>
                         }
                     </ul>
                 </div>
-
-
             </div>
         </nav>
     </header>
 
-    <div class="container">
+    <!-- Mostrar el menú lateral solo si el usuario está autenticado -->
+    @if (User.Identity.IsAuthenticated)
+    {
+        <div class="sidebar" id="sidebar">
+            <ul class="nav flex-column">
+                @foreach (var item in new[] {
+            new { Controller = "Home", Action = "Index", Name = "Inicio", Icon = "fa-home" },
+            new { Controller = "Estudiantes", Action = "Index", Name = "Estudiantes", Icon = "fa-user-graduate" },
+            new { Controller = "Pacientes", Action = "Index", Name = "Pacientes", Icon = "fa-user-injured" },
+            new { Controller = "Profesores", Action = "Index", Name = "Profesores", Icon = "fa-chalkboard-teacher" },
+            new { Controller = "Procedimientos", Action = "Index", Name = "Procedimientos", Icon = "fa-stethoscope" },
+            new { Controller = "Citas", Action = "Index", Name = "Citas", Icon = "fa-calendar-check" },
+            new { Controller = "Equipos", Action = "Index", Name = "Equipos", Icon = "fa-tools" },
+            new { Controller = "Consultorios", Action = "Index", Name = "Consultorios", Icon = "fa-clinic-medical" },
+            new { Controller = "SalaCirugias", Action = "Index", Name = "Salas de Cirugía", Icon = "fa-procedures" },
+            new { Controller = "Facturas", Action = "Index", Name = "Facturas", Icon = "fa-file-invoice-dollar" },
+            new { Controller = "DetalleFacturas", Action = "Index", Name = "Detalles de Factura", Icon = "fa-file-alt" },
+            new { Controller = "Calificaciones", Action = "Index", Name = "Calificaciones", Icon = "fa-star" }
+            })
+                {
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewContext.RouteData.Values["Controller"].ToString() == item.Controller && ViewContext.RouteData.Values["Action"].ToString() == item.Action ? "active-link" : "")"
+                           asp-area="" asp-controller="@item.Controller" asp-action="@item.Action">
+                            <i class="fas @item.Icon"></i> @item.Name
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <!-- Botón para mostrar/ocultar la barra lateral -->
+        <button class="sidebar-toggle" id="sidebarToggle">
+            &laquo; <!-- Flecha izquierda -->
+        </button>
+    }
+
+    <!-- Contenido principal -->
+    <div class="content">
         <main role="main" class="pb-3">
+            <!-- Aquí se renderizará el contenido de cada vista -->
             @RenderBody()
         </main>
     </div>
 
-    <footer class="footer text-center text-white">
-        <div class="container">
-            &copy; 2024 - HospiLatina - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
+    <footer class="footer">
+        &copy; 2024 - HospiLatina - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
     </footer>
 
     <!-- Modal de confirmación para cerrar sesión -->
@@ -132,6 +227,19 @@
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
+        // Lógica para mostrar/ocultar la barra lateral
+        document.getElementById('sidebarToggle').addEventListener('click', function () {
+            var sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hidden');
+
+            // Cambiar la dirección de la flecha
+            if (sidebar.classList.contains('hidden')) {
+                this.innerHTML = '&raquo;'; // Flecha derecha
+            } else {
+                this.innerHTML = '&laquo;'; // Flecha izquierda
+            }
+        });
+
         document.getElementById('confirmLogout').addEventListener('click', function () {
             window.location.href = '@Url.Action("Logout", "Account")';
         });

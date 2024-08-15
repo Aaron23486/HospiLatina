@@ -6,23 +6,27 @@
 
 <h1>Editar</h1>
 
-<h4>Calificación</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
+<div class="card">
+    <div class="card-header">
+        Editar Calificación
+    </div>
+    <div class="card-body">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCalificacion" />
+
             <div class="form-group">
                 <label asp-for="Puntuacion" class="control-label"></label>
                 <input asp-for="Puntuacion" class="form-control" />
                 <span asp-validation-for="Puntuacion" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Comentario" class="control-label"></label>
                 <input asp-for="Comentario" class="form-control" />
                 <span asp-validation-for="Comentario" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Cita" class="control-label"></label>
                 <select asp-for="IdCita" class="form-control" asp-items="@(new SelectList(ViewBag.IdCita, "Value", "Text", Model.IdCita))">
@@ -30,6 +34,7 @@
                 </select>
                 <span asp-validation-for="IdCita" class="text-danger"></span>
             </div>
+
             <div class="form-group mt-3">
                 <input type="submit" value="Guardar" class="btn btn-outline-primary" />
                 <a asp-action="Index" class="btn btn-outline-secondary ml-2">Regresar</a>

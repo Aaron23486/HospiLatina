@@ -1,18 +1,20 @@
 ﻿@model HospiLatina.Data.Entities.Cita
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar";
 }
 
 <h1>Editar</h1>
 
-<h4>Cita</h4>
-<hr />
-<div class="row">
-    <div class="col-md-12">
+<div class="card">
+    <div class="card-header">
+        Editar Cita
+    </div>
+    <div class="card-body">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCita" />
+
             <div class="form-group">
                 <label asp-for="Profesor" class="control-label"></label>
                 <select asp-for="IdProfesor" class="form-control" asp-items="@(new SelectList(ViewBag.IdProfesor, "Value", "Text", Model.IdProfesor))">
@@ -20,6 +22,7 @@
                 </select>
                 <span asp-validation-for="IdProfesor" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Procedimiento" class="control-label"></label>
                 <select asp-for="IdProcedimiento" class="form-control" asp-items="@(new SelectList(ViewBag.IdProcedimiento, "Value", "Text", Model.IdProcedimiento))">
@@ -27,6 +30,7 @@
                 </select>
                 <span asp-validation-for="IdProcedimiento" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Estudiante" class="control-label"></label>
                 <select asp-for="IdEstudiante" class="form-control" asp-items="@(new SelectList(ViewBag.IdEstudiante, "Value", "Text", Model.IdEstudiante))">
@@ -34,16 +38,19 @@
                 </select>
                 <span asp-validation-for="IdEstudiante" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
+                <input asp-for="Fecha" class="form-control" type="date" />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Hora" class="control-label"></label>
-                <input asp-for="Hora" class="form-control" />
+                <input asp-for="Hora" class="form-control" type="time" />
                 <span asp-validation-for="Hora" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Consultorio" class="control-label"></label>
                 <select asp-for="IdConsultorio" class="form-control" asp-items="@(new SelectList(ViewBag.IdConsultorio, "Value", "Text", Model.IdConsultorio))">
@@ -51,6 +58,7 @@
                 </select>
                 <span asp-validation-for="IdConsultorio" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Paciente" class="control-label"></label>
                 <select asp-for="IdPaciente" class="form-control" asp-items="@(new SelectList(ViewBag.IdPaciente, "Value", "Text", Model.IdPaciente))">
@@ -58,6 +66,7 @@
                 </select>
                 <span asp-validation-for="IdPaciente" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Sala" class="control-label"></label>
                 <select asp-for="IdSala" class="form-control" asp-items="@(new SelectList(ViewBag.IdSala, "Value", "Text", Model.IdSala))">
@@ -65,6 +74,7 @@
                 </select>
                 <span asp-validation-for="IdSala" class="text-danger"></span>
             </div>
+
             <div class="form-group mt-3">
                 <input type="submit" value="Guardar" class="btn btn-outline-primary" />
                 <a asp-action="Index" class="btn btn-outline-secondary ml-2">Regresar</a>
