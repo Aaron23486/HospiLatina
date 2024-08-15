@@ -13,6 +13,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IdFactura) <!-- Nueva columna para el ID de la Factura -->
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.Fecha)
             </th>
             <th>
@@ -28,6 +31,9 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    @item.IdFactura <!-- Mostrar el ID de la Factura -->
+                </td>
                 <td>
                     @item.Fecha.ToString("dd/MM/yyyy")
                 </td>

@@ -1,0 +1,14 @@
+﻿<h2>Consultas</h2>
+
+<div class="list-group">
+    <a href="@Url.Action("HorariosDisponibles", "Consultas")" class="list-group-item list-group-item-action">Horarios Disponibles por Especialidad y Doctor</a>
+    <a href="@Url.Action("PacientesPorDoctor", "Consultas")" class="list-group-item list-group-item-action">Cantidad de Pacientes Atendidos por Doctor</a>
+    <a href="@Url.Action("Top5DoctoresPacientes", "Consultas")" class="list-group-item list-group-item-action">Top 5 de Doctores con Más Pacientes Atendidos</a>
+    <a href="@Url.Action("Top3DoctoresCalificados", "Consultas")" class="list-group-item list-group-item-action">Top 3 de Doctores Mejor Calificados</a>
+    <a href="@Url.Action("ServiciosMasSolicitados", "Consultas")" class="list-group-item list-group-item-action">Lista de Servicios Ordenados por los Más Solicitados</a>
+    <a href="@Url.Action("Top2HorariosPacientes", "Consultas")" class="list-group-item list-group-item-action">Top 2 de Horarios con Más Pacientes Atendidos</a>
+    <a href="@Url.Action("Top10ServiciosGanancias", "Consultas")" class="list-group-item list-group-item-action">Top 10 de Servicios que Más Ganancias Generaron en el Mes</a>
+    <a href="@Url.Action("EquiposSoporteMes", "Consultas", new { mes = DateTime.Now.Month })" class="list-group-item list-group-item-action">Listado de Equipos Especializados con Soporte en un Mes Específico</a>
+    <a href="@Url.Action("DoctoresConApoyo", "Consultas")" class="list-group-item list-group-item-action">Listado de Doctores con sus Doctores de Apoyo por Especialidad</a>
+    <a href="@Url.Action("HorariosMenosPacientes", "Consultas")" class="list-group-item list-group-item-action">Días de la Semana y Horarios con Menos Pacientes Atendidos en Promedio</a>
+</div>

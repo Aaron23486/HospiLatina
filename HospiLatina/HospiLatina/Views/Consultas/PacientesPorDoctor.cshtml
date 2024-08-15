@@ -1,0 +1,26 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Cantidad de Pacientes Atendidos por Doctor</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Cantidad de Pacientes Atendidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Doctor</td>
+                        <td>@item.CantidadPacientes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

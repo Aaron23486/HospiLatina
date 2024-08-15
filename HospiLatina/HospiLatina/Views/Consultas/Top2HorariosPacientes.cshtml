@@ -1,0 +1,28 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Top 2 de Horarios con Más Pacientes Atendidos</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Día</th>
+                    <th>Hora</th>
+                    <th>Cantidad de Pacientes</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Dia.ToShortDateString()</td> <!-- Mostrar solo la fecha -->
+                        <td>@item.Hora</td>
+                        <td>@item.CantidadPacientes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

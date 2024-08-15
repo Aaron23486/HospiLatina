@@ -1,0 +1,28 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Días de la Semana y Horarios con Menos Pacientes Atendidos en Promedio</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Día de la Semana</th>
+                    <th>Horario</th>
+                    <th>Promedio de Pacientes Atendidos</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DiaSemana</td>
+                        <td>@item.Horario</td>
+                        <td>@item.PromedioPacientes</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

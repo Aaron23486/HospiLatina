@@ -1,0 +1,26 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Top 3 de Doctores Mejor Calificados</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Puntuación Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Doctor</td>
+                        <td>@item.PromedioCalificacion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

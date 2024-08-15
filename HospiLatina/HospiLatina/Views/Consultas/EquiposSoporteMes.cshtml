@@ -1,0 +1,37 @@
+﻿@model IEnumerable<HospiLatina.Data.Entities.Equipo>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Listado de Equipos Especializados con Soporte en un Mes Específico</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Equipo</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Soporte</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.Any())
+                {
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Nombre</td>
+                            <td>@item.Descripcion</td>
+                            <td>@item.FechaSoporte.ToShortDateString()</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="3" class="text-center">No se encontraron registros para el mes especificado.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

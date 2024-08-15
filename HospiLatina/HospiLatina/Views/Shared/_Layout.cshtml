@@ -15,6 +15,8 @@
             background-size: 50% 50%; /* Define el tamaño de la imagen de fondo */
             background-position: center; /* Centra la imagen de fondo */
             background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
+            background-color: rgba(255, 255, 255, 0.6); /* Añade una capa blanca semi-transparente sobre la imagen de fondo */
+            background-blend-mode: lighten; /* Mezcla la imagen y el color de fondo para dar efecto de transparencia */
             color: #f8f9fa; /* Establece el color del texto general */
         }
 
@@ -132,7 +134,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="nav navbar-nav ms-auto">
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" id="consultaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Consultas
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="consultaDropdown">
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="HorariosDisponibles">Horarios Disponibles</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="PacientesPorDoctor">Pacientes por Doctor</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="Top5DoctoresPacientes">Top 5 Doctores con Más Pacientes</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="Top3DoctoresCalificados">Top 3 Doctores Mejor Calificados</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="ServiciosMasSolicitados">Servicios Más Solicitados</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="Top2HorariosPacientes">Top 2 Horarios con Más Pacientes</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="Top10ServiciosGanancias">Top 10 Servicios que Más Ganancias Generaron</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="EquiposSoporteMes" asp-route-mes="07" asp-route-year="2023">Equipos con Soporte en un Mes</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="DoctoresConApoyo">Doctores con Apoyo por Especialidad</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-controller="Consultas" asp-action="HorariosMenosPacientes">Horarios con Menos Pacientes</a></li>
+                                </ul>
+                            </li>
+                        }
+                        
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -144,7 +167,7 @@
                         }
                         else
                         {
-                            <li class="nav-item" style="text-black">
+                            <li class="nav-item">
                                 <a class="nav-link text-white" asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesión</a>
                             </li>
                         }
@@ -153,6 +176,7 @@
             </div>
         </nav>
     </header>
+
 
     <!-- Mostrar el menú lateral solo si el usuario está autenticado -->
     @if (User.Identity.IsAuthenticated)
@@ -204,7 +228,8 @@
 
     <!-- Modal de confirmación para cerrar sesión -->
     <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-dialog-centered">
+            <!-- Agregado modal-dialog-centered -->
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="logoutModalLabel">Cerrar Sesión</h5>
@@ -220,6 +245,7 @@
             </div>
         </div>
     </div>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

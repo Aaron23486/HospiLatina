@@ -1,0 +1,46 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Listado de Doctores con sus Doctores de Apoyo por Especialidad</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Doctor Principal</th>
+                    <th>Especialidad</th>
+                    <th>Doctores de Apoyo</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Doctor</td>
+                        <td>@item.Especialidad</td>
+                        <td>
+                            @if (item.DoctoresDeApoyo != null && item.DoctoresDeApoyo.Count > 0)
+                            {
+                                @foreach (var apoyo in item.DoctoresDeApoyo)
+                                {
+                                    <p>@apoyo.Nombre</p>
+                                }
+                            }
+                            else
+                            {
+                                <p>No hay doctores de apoyo asignados.</p>
+                            }
+                        </td>
+                    </tr>
+                }
+                @if (!Model.Any())
+                {
+                    <tr>
+                        <td colspan="3" class="text-center">No se encontraron registros de doctores con apoyo.</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

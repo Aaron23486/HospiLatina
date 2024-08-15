@@ -1,0 +1,28 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="card mt-4">
+    <div class="card-header">
+        <h2>Horarios Disponibles por Especialidad y Doctor</h2>
+    </div>
+    <div class="card-body">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Especialidad</th>
+                    <th>Doctor</th>
+                    <th>Horario Disponible</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Especialidad</td>
+                        <td>@item.Doctor</td>
+                        <td>@item.HorarioAtencion</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
