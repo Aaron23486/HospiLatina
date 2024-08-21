@@ -12,7 +12,7 @@
         /* Estilos generales para el cuerpo de la página */
         body {
             background-image: url('/images/Hospi.jpg'); /* Establece una imagen de fondo */
-            background-size: 50% 50%; /* Define el tamaño de la imagen de fondo */
+            background-size: 60% 60%; /* Define el tamaño de la imagen de fondo */
             background-position: center; /* Centra la imagen de fondo */
             background-repeat: no-repeat; /* Evita que la imagen de fondo se repita */
             background-color: rgba(255, 255, 255, 0.6); /* Añade una capa blanca semi-transparente sobre la imagen de fondo */
@@ -70,11 +70,13 @@
         .content {
             margin-left: 220px;
             padding: 20px;
-            transition: margin-left 0.3s ease;
+            transition: margin-left 0.3s ease, width 0.3s ease; /* Transición también para el ancho */
+            width: calc(100% - 220px); /* Tamaño del contenido cuando la barra lateral está visible */
         }
 
         .sidebar.hidden + .content {
             margin-left: 0;
+            width: 100%; /* Expandir el contenido al 100% cuando la barra lateral esté oculta */
         }
 
         /* Estilo para el pie de página */
@@ -155,7 +157,7 @@
                                 </ul>
                             </li>
                         }
-                        
+
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
@@ -256,13 +258,18 @@
         // Lógica para mostrar/ocultar la barra lateral
         document.getElementById('sidebarToggle').addEventListener('click', function () {
             var sidebar = document.getElementById('sidebar');
+            var content = document.querySelector('.content');
             sidebar.classList.toggle('hidden');
 
             // Cambiar la dirección de la flecha
             if (sidebar.classList.contains('hidden')) {
                 this.innerHTML = '&raquo;'; // Flecha derecha
+                content.style.marginLeft = '0';
+                content.style.width = '100%';
             } else {
                 this.innerHTML = '&laquo;'; // Flecha izquierda
+                content.style.marginLeft = '220px';
+                content.style.width = 'calc(100% - 220px)';
             }
         });
 
