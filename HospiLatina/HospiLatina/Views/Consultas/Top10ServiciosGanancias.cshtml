@@ -6,17 +6,18 @@
     </div>
     <div class="card-body">
         <form asp-action="Top10ServiciosGanancias" method="get" class="mb-4">
-            <div class="form-row">
-                <div class="col">
+            <div class="form-row align-items-end">
+                <div class="col-md-3">
                     <label for="startDate">Fecha Inicio</label>
                     <input type="date" name="startDate" id="startDate" class="form-control" />
                 </div>
-                <div class="col">
+                <div class="col-md-3">
                     <label for="endDate">Fecha Fin</label>
                     <input type="date" name="endDate" id="endDate" class="form-control" />
                 </div>
-                <div class="col align-self-end">
-                    <button type="submit" class="btn btn-outline-primary mt-2">Filtrar</button>
+                <br/>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-outline-primary">Filtrar</button>
                 </div>
             </div>
         </form>
@@ -49,7 +50,7 @@
                 "paging": true,
                 "searching": true,
                 "lengthChange": true,
-                "pageLength": 10,
+                "pageLength": 6,  // Mostrar solo 6 filas en la tabla
                 "info": false,
                 "autoWidth": false,
                 "language": {
