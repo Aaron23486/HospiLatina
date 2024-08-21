@@ -1,10 +1,10 @@
 ﻿@model HospiLatina.Data.Entities.Factura
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar Factura";
 }
 
-<h1>Editar</h1>
+<h1>Editar Factura</h1>
 
 <div class="card">
     <div class="card-header">
@@ -30,9 +30,21 @@
             </div>
 
             <div class="form-group">
+                <label asp-for="DetallesFactura.FirstOrDefault().Cantidad" class="control-label">Cantidad</label>
+                <input asp-for="DetallesFactura.FirstOrDefault().Cantidad" class="form-control" />
+                <span asp-validation-for="DetallesFactura.FirstOrDefault().Cantidad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
                 <label asp-for="Total" class="control-label"></label>
                 <input asp-for="Total" class="form-control" />
                 <span asp-validation-for="Total" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="DetallesFactura.FirstOrDefault().Procedimiento.Nombre" class="control-label">Procedimiento</label>
+                <input asp-for="DetallesFactura.FirstOrDefault().Procedimiento.Nombre" class="form-control" />
+                <span asp-validation-for="DetallesFactura.FirstOrDefault().Procedimiento.Nombre" class="text-danger"></span>
             </div>
 
             <div class="form-group mt-3">

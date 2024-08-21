@@ -13,6 +13,8 @@ namespace HospiLatina.Data.Entities
         [Display(Name = "Paciente")]
         public string Nombre { get; set; }
         public string Apellido { get; set; }
+
+        [Display(Name = "Fecha de Nacimiento")]
         public DateTime FechaNacimiento { get; set; }
 
         public ICollection<Cita>? Citas { get; set; }

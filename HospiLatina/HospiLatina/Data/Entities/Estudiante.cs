@@ -10,7 +10,11 @@ namespace HospiLatina.Data.Entities
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string Especialidad { get; set; }
+
+        [Display(Name = "Ano De Graduacion")]
         public int AnoDeGraduacion { get; set; }
+
+        [Display(Name = "Horario Atencion")]
         public string HorarioAtencion { get; set; }
 
         public ICollection<Cita>? Citas { get; set; }

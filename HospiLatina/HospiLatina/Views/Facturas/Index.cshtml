@@ -9,33 +9,57 @@
 <p>
     <a asp-action="Create" class="btn btn-outline-primary">Nuevo</a>
 </p>
-<table class="table">
+<table id="facturasTable" class="table table-striped table-bordered">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.IdFactura) <!-- Nueva columna para el ID de la Factura -->
+                @Html.DisplayNameFor(model => model.IdFactura)
+                <br />
+                <input type="text" class="form-control form-control-sm" placeholder="Buscar ID de Factura" />
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Fecha)
+                <br />
+                <input type="text" class="form-control form-control-sm" placeholder="Buscar Fecha" />
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetallesFactura.FirstOrDefault().Cantidad) <!-- Nueva columna para la cantidad -->
+                <br />
+                <input type="text" class="form-control form-control-sm" placeholder="Buscar Cantidad" />
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Total)
+                <br />
+                <input type="text" class="form-control form-control-sm" placeholder="Buscar Total" />
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Paciente)
+                @Html.DisplayNameFor(model => model.Paciente.Nombre)
+                <br />
+                <input type="text" class="form-control form-control-sm" placeholder="Buscar Paciente" />
             </th>
-            <th>Acciónes</th>
+            <th>
+                @Html.DisplayNameFor(model => model.DetallesFactura.FirstOrDefault().Procedimiento.Nombre) <!-- Nueva columna para el nombre del procedimiento -->
+                <br />
+                <input type="text" class="form-control form-control-sm" placeholder="Buscar Procedimiento" />
+            </th>
+            <th class="text-center">
+                Acciones
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr>
+            <tr style="height: 60px;">
+                <!-- Aplica una altura fija -->
                 <td>
-                    @item.IdFactura <!-- Mostrar el ID de la Factura -->
+                    @item.IdFactura
                 </td>
                 <td>
                     @item.Fecha.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DetallesFactura.FirstOrDefault().Cantidad) <!-- Mostrar la cantidad -->
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Total)
@@ -44,6 +68,9 @@
                     @Html.DisplayFor(modelItem => item.Paciente.Nombre)
                 </td>
                 <td>
+                    @Html.DisplayFor(modelItem => item.DetallesFactura.FirstOrDefault().Procedimiento.Nombre) <!-- Mostrar el nombre del procedimiento -->
+                </td>
+                <td class="text-center">
                     <a asp-action="Edit" asp-route-id="@item.IdFactura" class="btn btn-outline-primary ml-2">Editar</a>
                     <a asp-action="Details" asp-route-id="@item.IdFactura" class="btn btn-outline-info ml-2">Detalles</a>
                     <a asp-action="Delete" asp-route-id="@item.IdFactura" class="btn btn-outline-danger ml-2">Borrar</a>
@@ -52,3 +79,37 @@
         }
     </tbody>
 </table>
+
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#facturasTable').DataTable({
+                "order": [[0, "asc"]], // Orden inicial por la primera columna
+                "paging": true, // Habilitar paginación
+                "searching": true, // Mantener la búsqueda activada para los filtros de columnas
+                "autoWidth": false, // Deshabilitar el auto-ajuste de ancho
+                "lengthChange": true, // Habilitar la capacidad de cambiar el número de elementos por página
+                "pageLength": 10, // Número inicial de registros por página
+                "lengthMenu": [10, 25, 50], // Opciones para el número de registros por página
+                "info": false, // Deshabilitar la información de cantidad de registros
+                "dom": 'lrt<"bottom"ip>', // Incluir el control de longitud de página
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.21/i18n/Spanish.json" // Traducción al español
+                }
+            });
+
+            // Filtrar por cada columna usando los inputs en el encabezado
+            $('#facturasTable thead input').on('keyup change', function () {
+                table.column($(this).parent().index()).search(this.value).draw();
+            });
+
+            // Mantener el tamaño de las filas consistente
+            table.on('draw.dt', function () {
+                $('#facturasTable tbody tr').css('height', '60px'); // Ajusta el tamaño según sea necesario
+            });
+        });
+    </script>
+}

@@ -1,12 +1,13 @@
 ﻿@model HospiLatina.Data.Entities.Factura
 
 @{
-    ViewData["Title"] = "Borrar";
+    ViewData["Title"] = "Borrar Factura";
 }
 
-<h1>Borrar</h1>
+<h1>Borrar Factura</h1>
 
 <h3>¿Estás seguro que deseas eliminar esta factura?</h3>
+
 <div class="card">
     <div class="card-header">
         Factura
@@ -20,16 +21,28 @@
                 @Html.DisplayFor(model => model.Fecha)
             </dd>
             <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DetallesFactura.FirstOrDefault().Cantidad)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DetallesFactura.FirstOrDefault().Cantidad)
+            </dd>
+            <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Total)
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Total)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Paciente)
+                @Html.DisplayNameFor(model => model.Paciente.Nombre)
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Paciente.Nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DetallesFactura.FirstOrDefault().Procedimiento.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DetallesFactura.FirstOrDefault().Procedimiento.Nombre)
             </dd>
         </dl>
     </div>

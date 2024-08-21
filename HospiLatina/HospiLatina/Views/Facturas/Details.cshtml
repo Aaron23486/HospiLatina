@@ -1,10 +1,10 @@
 ﻿@model HospiLatina.Data.Entities.Factura
 
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Detalles de la Factura";
 }
 
-<h1>Detalles</h1>
+<h1>Detalles de la Factura</h1>
 
 <div class="card">
     <div class="card-header">
@@ -19,21 +19,34 @@
                 @Html.DisplayFor(model => model.Fecha)
             </dd>
             <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DetallesFactura.FirstOrDefault().Cantidad)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DetallesFactura.FirstOrDefault().Cantidad)
+            </dd>
+            <dt class="col-sm-2">
                 @Html.DisplayNameFor(model => model.Total)
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Total)
             </dd>
             <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Paciente)
+                @Html.DisplayNameFor(model => model.Paciente.Nombre)
             </dt>
             <dd class="col-sm-10">
                 @Html.DisplayFor(model => model.Paciente.Nombre)
             </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.DetallesFactura.FirstOrDefault().Procedimiento.Nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.DetallesFactura.FirstOrDefault().Procedimiento.Nombre)
+            </dd>
         </dl>
     </div>
 </div>
+
 <div class="mt-3">
-    <a asp-action="Edit" asp-route-id="@Model?.IdFactura" class="btn btn-outline-primary">Editar</a>
+    <a asp-action="Edit" asp-route-id="@Model.IdFactura" class="btn btn-outline-primary">Editar</a>
     <a asp-action="Index" class="btn btn-outline-secondary ml-2">Regresar</a>
 </div>

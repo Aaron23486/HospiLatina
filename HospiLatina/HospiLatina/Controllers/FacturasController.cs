@@ -24,7 +24,10 @@ namespace HospiLatina.Controllers
         // GET: Facturas
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.Facturas.Include(f => f.Paciente);
+            var dataContext = _context.Facturas
+                .Include(f => f.Paciente)
+                .Include(f => f.DetallesFactura)  // Incluye la relación con DetallesFactura
+                    .ThenInclude(d => d.Procedimiento);  // Incluye la relación con Procedimiento
             return View(await dataContext.ToListAsync());
         }
 
@@ -38,7 +41,10 @@ namespace HospiLatina.Controllers
 
             var factura = await _context.Facturas
                 .Include(f => f.Paciente)
+                .Include(f => f.DetallesFactura)  // Incluye los detalles de la factura
+                    .ThenInclude(d => d.Procedimiento)  // Incluye el procedimiento en los detalles
                 .FirstOrDefaultAsync(m => m.IdFactura == id);
+
             if (factura == null)
             {
                 return NotFound();
@@ -88,11 +94,16 @@ namespace HospiLatina.Controllers
                 return NotFound();
             }
 
-            var factura = await _context.Facturas.FindAsync(id);
+            var factura = await _context.Facturas
+                .Include(f => f.DetallesFactura)  // Incluye los detalles de la factura
+                    .ThenInclude(d => d.Procedimiento)  // Incluye el procedimiento en los detalles
+                .FirstOrDefaultAsync(f => f.IdFactura == id);
+
             if (factura == null)
             {
                 return NotFound();
             }
+
             ViewData["IdPaciente"] = new SelectList(
                 _context.Pacientes.Select(p => new {
                     p.IdPaciente,
@@ -151,7 +162,10 @@ namespace HospiLatina.Controllers
 
             var factura = await _context.Facturas
                 .Include(f => f.Paciente)
+                .Include(f => f.DetallesFactura)  // Incluye los detalles de la factura
+                    .ThenInclude(d => d.Procedimiento)  // Incluye el procedimiento en los detalles
                 .FirstOrDefaultAsync(m => m.IdFactura == id);
+
             if (factura == null)
             {
                 return NotFound();

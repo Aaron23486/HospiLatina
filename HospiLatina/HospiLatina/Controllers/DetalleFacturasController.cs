@@ -24,7 +24,10 @@ namespace HospiLatina.Controllers
         // GET: DetalleFacturas
         public async Task<IActionResult> Index()
         {
-            var dataContext = _context.DetallesFactura.Include(d => d.Factura).Include(d => d.Procedimiento);
+            var dataContext = _context.DetallesFactura
+                .Include(d => d.Factura)
+                    .ThenInclude(f => f.Paciente)  // Incluye la relación con Paciente
+                .Include(d => d.Procedimiento);
             return View(await dataContext.ToListAsync());
         }
 
@@ -38,6 +41,7 @@ namespace HospiLatina.Controllers
 
             var detalleFactura = await _context.DetallesFactura
                 .Include(d => d.Factura)
+                    .ThenInclude(f => f.Paciente)  // Incluye la relación con Paciente
                 .Include(d => d.Procedimiento)
                 .FirstOrDefaultAsync(m => m.IdDetalle == id);
             if (detalleFactura == null)
@@ -103,11 +107,17 @@ namespace HospiLatina.Controllers
                 return NotFound();
             }
 
-            var detalleFactura = await _context.DetallesFactura.FindAsync(id);
+            var detalleFactura = await _context.DetallesFactura
+                .Include(d => d.Factura)
+                    .ThenInclude(f => f.Paciente)  // Incluye la relación con Paciente
+                .Include(d => d.Procedimiento)
+                .FirstOrDefaultAsync(d => d.IdDetalle == id);
+
             if (detalleFactura == null)
             {
                 return NotFound();
             }
+
             ViewData["IdFactura"] = new SelectList(
                 _context.Facturas.Select(f => new {
                     f.IdFactura,
@@ -180,8 +190,10 @@ namespace HospiLatina.Controllers
 
             var detalleFactura = await _context.DetallesFactura
                 .Include(d => d.Factura)
+                    .ThenInclude(f => f.Paciente)  // Incluye la relación con Paciente
                 .Include(d => d.Procedimiento)
                 .FirstOrDefaultAsync(m => m.IdDetalle == id);
+
             if (detalleFactura == null)
             {
                 return NotFound();

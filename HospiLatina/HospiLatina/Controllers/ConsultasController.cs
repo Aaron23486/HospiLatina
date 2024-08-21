@@ -133,11 +133,24 @@ namespace HospiLatina.Controllers
 
 
         // Top 10 de Servicios que Más Ganancias Generaron en el Mes
-        public async Task<IActionResult> Top10ServiciosGanancias()
+        public async Task<IActionResult> Top10ServiciosGanancias(DateTime? startDate, DateTime? endDate)
         {
-            var topServicios = await _context.DetallesFactura
+            var query = _context.DetallesFactura
                 .Include(df => df.Procedimiento)
                 .Include(df => df.Factura)
+                .AsQueryable();
+
+            if (startDate.HasValue)
+            {
+                query = query.Where(df => df.Factura.Fecha >= startDate.Value);
+            }
+
+            if (endDate.HasValue)
+            {
+                query = query.Where(df => df.Factura.Fecha <= endDate.Value);
+            }
+
+            var topServicios = await query
                 .GroupBy(df => df.Procedimiento.Nombre)
                 .Select(g => new
                 {
@@ -150,6 +163,7 @@ namespace HospiLatina.Controllers
 
             return View(topServicios);
         }
+
 
 
 

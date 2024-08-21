@@ -1,10 +1,10 @@
 ﻿@model HospiLatina.Data.Entities.DetalleFactura
 
 @{
-    ViewData["Title"] = "Editar";
+    ViewData["Title"] = "Editar Detalle de Factura";
 }
 
-<h1>Editar</h1>
+<h1>Editar Detalle de Factura</h1>
 
 <div class="card">
     <div class="card-header">
@@ -24,11 +24,9 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Procedimiento" class="control-label"></label>
-                <select asp-for="IdProcedimiento" class="form-control" asp-items="ViewBag.IdProcedimiento">
-                    <option value="">Seleccione un procedimiento</option>
-                </select>
-                <span asp-validation-for="IdProcedimiento" class="text-danger"></span>
+                <label asp-for="Cantidad" class="control-label"></label>
+                <input asp-for="Cantidad" class="form-control" />
+                <span asp-validation-for="Cantidad" class="text-danger"></span>
             </div>
 
             <div class="form-group">
@@ -38,9 +36,17 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Cantidad" class="control-label"></label>
-                <input asp-for="Cantidad" class="form-control" />
-                <span asp-validation-for="Cantidad" class="text-danger"></span>
+                <label asp-for="Factura.Paciente.Nombre" class="control-label">Paciente</label>
+                <input asp-for="Factura.Paciente.Nombre" class="form-control" />
+                <span asp-validation-for="Factura.Paciente.Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Procedimiento" class="control-label"></label>
+                <select asp-for="IdProcedimiento" class="form-control" asp-items="ViewBag.IdProcedimiento">
+                    <option value="">Seleccione un procedimiento</option>
+                </select>
+                <span asp-validation-for="IdProcedimiento" class="text-danger"></span>
             </div>
 
             <div class="form-group mt-3">
