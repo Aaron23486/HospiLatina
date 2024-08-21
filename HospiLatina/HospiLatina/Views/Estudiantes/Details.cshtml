@@ -1,51 +1,60 @@
 ﻿@model HospiLatina.Data.Entities.Estudiante
 
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Editar Estudiante";
 }
 
-<h1>Detalles</h1>
+<h1>Editar Estudiante</h1>
 
 <div class="card">
     <div class="card-header">
-        Detalles de Estudiante
+        Editar Estudiante
     </div>
     <div class="card-body">
-        <dl class="row">
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Nombre)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Nombre)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Apellido)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Apellido)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.Especialidad)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Especialidad)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.AnoDeGraduacion)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.AnoDeGraduacion)
-            </dd>
-            <dt class="col-sm-2">
-                @Html.DisplayNameFor(model => model.HorarioAtencion)
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.HorarioAtencion)
-            </dd>
-        </dl>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdEstudiante" />
+
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Apellido" class="control-label"></label>
+                <input asp-for="Apellido" class="form-control" />
+                <span asp-validation-for="Apellido" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Especialidad" class="control-label"></label>
+                <input asp-for="Especialidad" class="form-control" />
+                <span asp-validation-for="Especialidad" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="AnoDeGraduacion" class="control-label"></label>
+                <input asp-for="AnoDeGraduacion" class="form-control" />
+                <span asp-validation-for="AnoDeGraduacion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="HorarioAtencion" class="control-label"></label>
+                <input asp-for="HorarioAtencion" class="form-control" />
+                <span asp-validation-for="HorarioAtencion" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Guardar" class="btn btn-outline-primary" />
+                <a asp-action="Index" class="btn btn-outline-secondary ml-2">Regresar</a>
+            </div>
+        </form>
     </div>
 </div>
-<div class="mt-3">
-    <a asp-action="Edit" asp-route-id="@Model?.IdEstudiante" class="btn btn-outline-primary">Editar</a>
-    <a asp-action="Index" class="btn btn-outline-secondary ml-2">Regresar</a>
-</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

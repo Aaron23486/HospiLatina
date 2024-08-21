@@ -5,17 +5,44 @@
         <h2>Listado de Equipos Especializados con Soporte en un Mes Específico</h2>
     </div>
     <div class="card-body">
-        <table id="equiposSoporteTable" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Equipo</th>
-                    <th>Descripción</th>
-                    <th>Fecha de Soporte</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model.Any())
-                {
+        <form asp-action="EquiposSoporteMes" method="post">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="mes">Mes</label>
+                        <select name="mes" id="mes" class="form-control" required>
+                            @for (int i = 1; i <= 12; i++)
+                            {
+                                <option value="@i">@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(i)</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="year">Año</label>
+                        <input type="number" name="year" id="year" class="form-control" value="@DateTime.Now.Year" required />
+                    </div>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button type="submit" class="btn btn-outline-primary mt-2">Buscar</button>
+                </div>
+            </div>
+        </form>
+
+        <hr />
+
+        @if (Model.Any())
+        {
+            <table id="equiposSoporteTable" class="table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th>Equipo</th>
+                        <th>Descripción</th>
+                        <th>Fecha de Soporte</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -24,15 +51,15 @@
                             <td>@item.FechaSoporte.ToShortDateString()</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="3" class="text-center">No se encontraron registros para el mes especificado.</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <div class="alert alert-warning text-center">
+                No se encontraron registros para el mes y año especificados.
+            </div>
+        }
     </div>
 </div>
 

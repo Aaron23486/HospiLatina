@@ -62,6 +62,13 @@ namespace HospiLatina.Controllers
                     p.IdPaciente,
                     NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
                 }).ToList(), "IdPaciente", "NombreCompleto");
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(p => new {
+                    p.IdProcedimiento,
+                    p.Nombre
+                }).ToList(), "IdProcedimiento", "Nombre");
+
             return View();
         }
 
@@ -77,13 +84,22 @@ namespace HospiLatina.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdPaciente"] = new SelectList(
                 _context.Pacientes.Select(p => new {
                     p.IdPaciente,
                     NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
                 }).ToList(), "IdPaciente", "NombreCompleto", factura.IdPaciente);
+
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.Select(p => new {
+                    p.IdProcedimiento,
+                    p.Nombre
+                }).ToList(), "IdProcedimiento", "Nombre");
+
             return View(factura);
         }
+
 
         [Authorize(Roles = "Admin")]
         // GET: Facturas/Edit/5
@@ -95,8 +111,8 @@ namespace HospiLatina.Controllers
             }
 
             var factura = await _context.Facturas
-                .Include(f => f.DetallesFactura)  // Incluye los detalles de la factura
-                    .ThenInclude(d => d.Procedimiento)  // Incluye el procedimiento en los detalles
+                .Include(f => f.DetallesFactura)
+                    .ThenInclude(d => d.Procedimiento)
                 .FirstOrDefaultAsync(f => f.IdFactura == id);
 
             if (factura == null)
@@ -109,6 +125,14 @@ namespace HospiLatina.Controllers
                     p.IdPaciente,
                     NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
                 }).ToList(), "IdPaciente", "NombreCompleto", factura.IdPaciente);
+
+            // Asegúrate de que se carguen los procedimientos para la vista
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.ToList(),
+                "IdProcedimiento",
+                "Nombre",
+                factura.DetallesFactura.FirstOrDefault()?.IdProcedimiento);
+
             return View(factura);
         }
 
@@ -116,7 +140,7 @@ namespace HospiLatina.Controllers
         // POST: Facturas/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdFactura,IdPaciente,Fecha,Total")] Factura factura)
+        public async Task<IActionResult> Edit(int id, [Bind("IdFactura,IdPaciente,Fecha,Total,DetallesFactura")] Factura factura)
         {
             if (id != factura.IdFactura)
             {
@@ -143,13 +167,23 @@ namespace HospiLatina.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+
             ViewData["IdPaciente"] = new SelectList(
                 _context.Pacientes.Select(p => new {
                     p.IdPaciente,
                     NombreCompleto = $"{p.Nombre} {p.Apellido} ({p.IdPaciente})"
                 }).ToList(), "IdPaciente", "NombreCompleto", factura.IdPaciente);
+
+            // Asegúrate de que se recarguen los procedimientos en caso de error de validación
+            ViewData["IdProcedimiento"] = new SelectList(
+                _context.Procedimientos.ToList(),
+                "IdProcedimiento",
+                "Nombre",
+                factura.DetallesFactura.FirstOrDefault()?.IdProcedimiento);
+
             return View(factura);
         }
+
 
         [Authorize(Roles = "Admin")]
         // GET: Facturas/Delete/5

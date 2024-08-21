@@ -15,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Paciente" class="control-label"></label>
+                <label asp-for="IdPaciente" class="control-label">Paciente</label>
                 <select asp-for="IdPaciente" class="form-control" asp-items="ViewBag.IdPaciente">
                     <option value="">Seleccione un paciente</option>
                 </select>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
+                <label asp-for="Fecha" class="control-label">Fecha</label>
                 <input asp-for="Fecha" class="form-control" type="date" />
                 <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
@@ -35,15 +35,17 @@
             </div>
 
             <div class="form-group">
-                <label asp-for="Total" class="control-label"></label>
-                <input asp-for="Total" class="form-control" />
-                <span asp-validation-for="Total" class="text-danger"></span>
+                <label asp-for="DetallesFactura.FirstOrDefault().IdProcedimiento" class="control-label">Procedimiento</label>
+                <select asp-for="DetallesFactura.FirstOrDefault().IdProcedimiento" class="form-control" asp-items="ViewBag.IdProcedimiento">
+                    <option value="">Seleccione un procedimiento</option>
+                </select>
+                <span asp-validation-for="DetallesFactura.FirstOrDefault().IdProcedimiento" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="DetallesFactura.FirstOrDefault().Procedimiento.Nombre" class="control-label">Procedimiento</label>
-                <input asp-for="DetallesFactura.FirstOrDefault().Procedimiento.Nombre" class="form-control" />
-                <span asp-validation-for="DetallesFactura.FirstOrDefault().Procedimiento.Nombre" class="text-danger"></span>
+                <label asp-for="Total" class="control-label">Total</label>
+                <input asp-for="Total" class="form-control" />
+                <span asp-validation-for="Total" class="text-danger"></span>
             </div>
 
             <div class="form-group mt-3">
@@ -52,3 +54,4 @@
             </div>
         </form>
     </div>
+</div>

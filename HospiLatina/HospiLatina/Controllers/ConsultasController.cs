@@ -3,6 +3,7 @@ using HospiLatina.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
+using HospiLatina.Data.Entities;
 
 namespace HospiLatina.Controllers
 {
@@ -83,7 +84,7 @@ namespace HospiLatina.Controllers
             var topCalificados = await _context.Calificaciones
                 .Include(cal => cal.Cita)
                 .ThenInclude(c => c.Profesor)
-                .GroupBy(cal => cal.Cita.Profesor.Nombre)
+                .GroupBy(cal => cal.Cita.Estudiante.Nombre)
                 .Select(g => new
                 {
                     Doctor = g.Key,
@@ -133,33 +134,36 @@ namespace HospiLatina.Controllers
 
 
         // Top 10 de Servicios que Más Ganancias Generaron en el Mes
-        public async Task<IActionResult> Top10ServiciosGanancias(DateTime? startDate, DateTime? endDate)
+        public async Task<IActionResult> Top10ServiciosGanancias(int? mes, int? year)
         {
+            if (!mes.HasValue || !year.HasValue)
+            {
+                mes = DateTime.Now.Month;
+                year = DateTime.Now.Year;
+            }
+
+            var fechaInicio = new DateTime(year.Value, mes.Value, 1);
+            var fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
+
             var query = _context.DetallesFactura
                 .Include(df => df.Procedimiento)
                 .Include(df => df.Factura)
+                .Where(df => df.Factura.Fecha >= fechaInicio && df.Factura.Fecha <= fechaFin)
                 .AsQueryable();
-
-            if (startDate.HasValue)
-            {
-                query = query.Where(df => df.Factura.Fecha >= startDate.Value);
-            }
-
-            if (endDate.HasValue)
-            {
-                query = query.Where(df => df.Factura.Fecha <= endDate.Value);
-            }
 
             var topServicios = await query
                 .GroupBy(df => df.Procedimiento.Nombre)
                 .Select(g => new
                 {
                     Servicio = g.Key,
-                    Ganancias = g.Sum(df => df.Subtotal)
+                    Ganancias = g.Sum(df => df.Factura.Total)  // Aquí se suman los totales de las facturas
                 })
                 .OrderByDescending(s => s.Ganancias)
                 .Take(10)
                 .ToListAsync();
+
+            ViewBag.Mes = mes;
+            ViewBag.Year = year;
 
             return View(topServicios);
         }
@@ -167,14 +171,26 @@ namespace HospiLatina.Controllers
 
 
 
-        // Acción para listar equipos con soporte en un mes y año específico
-        [HttpGet("EquiposSoporteMes/{mes:int}/{year:int}")]
+
+
+
+        // Acción para mostrar el formulario y listar equipos según el mes y año seleccionados
+        [HttpGet]
+        public IActionResult EquiposSoporteMes()
+        {
+            // Mostrar el formulario inicialmente sin resultados
+            return View(new List<Equipo>());
+        }
+
+        // Acción para procesar la selección del mes y año
+        [HttpPost]
         public async Task<IActionResult> EquiposSoporteMes(int mes, int year)
         {
             // Validar que el mes esté entre 1 y 12
             if (mes < 1 || mes > 12)
             {
-                return BadRequest("El valor del mes debe estar entre 1 y 12.");
+                ModelState.AddModelError("", "El valor del mes debe estar entre 1 y 12.");
+                return View(new List<Equipo>());
             }
 
             try
@@ -190,37 +206,11 @@ namespace HospiLatina.Controllers
             }
             catch (ArgumentOutOfRangeException)
             {
-                return BadRequest("El año o mes proporcionado es inválido.");
+                ModelState.AddModelError("", "El año o mes proporcionado es inválido.");
+                return View(new List<Equipo>());
             }
         }
 
-        // Acción para listar equipos con soporte en un mes específico (sin año)
-        [HttpGet("EquiposSoporteMesPorMes/{mes:int}")]
-        public async Task<IActionResult> EquiposSoporteMesPorMes(int mes)
-        {
-            // Validar que el mes esté entre 1 y 12
-            if (mes < 1 || mes > 12)
-            {
-                return BadRequest("El valor del mes debe estar entre 1 y 12.");
-            }
-
-            try
-            {
-                var year = DateTime.Now.Year; // Se asume el año actual si no se proporciona
-                var fechaInicio = new DateTime(year, mes, 1);
-                var fechaFin = fechaInicio.AddMonths(1).AddDays(-1);
-
-                var equipos = await _context.Equipos
-                    .Where(e => e.FechaSoporte >= fechaInicio && e.FechaSoporte <= fechaFin)
-                    .ToListAsync();
-
-                return View("EquiposSoporteMes", equipos); // Se reutiliza la vista para mostrar resultados
-            }
-            catch (ArgumentOutOfRangeException)
-            {
-                return BadRequest("El año o mes proporcionado es inválido.");
-            }
-        }
 
 
 
